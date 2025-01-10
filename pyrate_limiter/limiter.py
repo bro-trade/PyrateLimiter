@@ -178,6 +178,8 @@ class Limiter:
             async def _handle_async():
                 nonlocal delay
                 delay = await delay
+                if isinstance(delay, float):
+                    delay = int(delay)
                 assert isinstance(delay, int), "Delay not integer"
                 delay += 50
 
@@ -201,6 +203,8 @@ class Limiter:
 
             return _handle_async()
 
+        if isinstance(delay, float):
+            delay = int(delay)
         assert isinstance(delay, int)
 
         if delay < 0:
